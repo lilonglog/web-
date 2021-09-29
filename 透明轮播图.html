@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+         *{margin: 0; padding: 0;}
+        #banner{overflow:hidden;position: relative;width:600px; height:300px; border:solid 1px #888;border-radius: 5px; margin: 50px auto;}
+        #banner img{display: none;position: absolute; left: 0; top: 0; width: 600px;height: 300px;}
+        #banner img:nth-of-type(1){display: block;}
+    </style>
+</head>
+<body>
+    <div id="banner">
+        <img src="images/x1.jpg" alt="">
+        <img src="images/x2.jpg" alt="">
+        <img src="images/x3.jpg" alt="">
+        <img src="images/x4.jpg" alt="">
+        <img src="images/x5.jpg" alt="">
+        <img src="images/x6.jpg" alt="">
+        <img src="images/x7.jpg" alt="">
+        <img src="images/x8.jpg" alt="">
+    </div>
+
+    <script src="./js/jquery-3.6.0.js"></script>
+    <script>
+        $(function() {
+            // 声明一个变量，指示当前图片
+            var currentIndex = 0
+            function autoPlay() {
+                // 隐藏当前图片
+                $('img').eq(currentIndex).fadeOut(1000)
+                currentIndex++
+                if(currentIndex >= $('img').length) {
+                    currentIndex = 0
+                }
+                $('img').eq(currentIndex).fadeIn(1000)
+            }
+
+            var timer = setInterval(function() {
+                autoPlay()
+            },3000)
+
+            /*
+            *   浏览器可见事件  
+            */
+           document.addEventListener('visibilitychang',function() {
+            console.log(document.hidden)
+            if(document.hidden) {
+                // 页面被挂起，清除计时器，节省资源
+                clearInterval(timer)
+            } else {
+                //  页面呼出
+                timer = setInterval(function() {
+                    autoPlay()
+                },3000)
+            }
+           })
+        })
+    </script>
+</body>
+</html>
